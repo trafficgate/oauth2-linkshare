@@ -1,0 +1,45 @@
+{
+  "name": "linkshare/oauth2-linkshare",
+  "description": "OAuth provider for connecting to LinkShare's developer APIs.",
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/trafficgate/oauth2-linkshare/issues",
+    "source": "https://github.com/trafficgate/oauth2-linkshare"
+  },
+  "authors": [
+    {
+      "name": "Andrew Miller",
+      "email": "andrew.miller@rakuten.com"
+    }
+  ],
+  "keywords": [
+    "oauth",
+    "oauth2",
+    "client",
+    "authorization",
+    "authorisation"
+  ],
+  "require": {
+    "php": ">=5.6",
+    "league/oauth2-client": "1.2.0"
+  },
+  "require-dev": {
+    "mockery/mockery": "0.9.4",
+    "phpunit/phpunit": "5.2.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "League\\OAuth2\\Client\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "League\\OAuth2\\Client\\Test\\": "test/src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  }
+}
