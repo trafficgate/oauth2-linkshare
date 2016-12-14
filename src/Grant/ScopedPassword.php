@@ -10,7 +10,7 @@ namespace League\OAuth2\Client\Grant;
 class ScopedPassword extends AbstractGrant
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getName()
     {
@@ -18,7 +18,7 @@ class ScopedPassword extends AbstractGrant
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getRequiredRequestParameters()
     {
