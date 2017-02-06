@@ -1,6 +1,8 @@
 <?php
 
-namespace League\OAuth2\Client\Grant;
+namespace Linkshare\OAuth2\Client\Grant;
+
+use League\OAuth2\Client\Grant\AbstractGrant;
 
 /**
  * Represents a resource owner password credentials grant.
@@ -10,15 +12,15 @@ namespace League\OAuth2\Client\Grant;
 class ScopedPassword extends AbstractGrant
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getName()
     {
-        return 'password';
+        return 'scoped_password';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getRequiredRequestParameters()
     {

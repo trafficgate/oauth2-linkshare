@@ -1,16 +1,17 @@
 <?php
 
-namespace League\OAuth2\Client\Provider;
+namespace Linkshare\OAuth2\Client\Provider;
 
+use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
-use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
+use Linkshare\OAuth2\Client\Grant\ScopedPassword;
 use Psr\Http\Message\ResponseInterface;
 
 class Linkshare extends AbstractProvider
 {
     /**
-     * @var string Key used in the access token response to identify the resource owner.
+     * @var string Key used in the access token response to identify the resource owner
      */
     const ACCESS_TOKEN_RESOURCE_OWNER_ID = null;
 
@@ -32,6 +33,7 @@ class Linkshare extends AbstractProvider
      * Eg. https://oauth.service.com/token
      *
      * @param array $params
+     *
      * @return string
      */
     public function getBaseAccessTokenUrl(array $params)
@@ -43,6 +45,7 @@ class Linkshare extends AbstractProvider
      * Returns the URL for requesting the resource owner's details.
      *
      * @param AccessToken $token
+     *
      * @return string
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
@@ -64,20 +67,26 @@ class Linkshare extends AbstractProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAccessToken($grant = 'scoped_password', array $options = [])
     {
+        // Allow LinkShare-specific 'scoped_password' to be specified as a string,
+        // keeping consistent with the other grant types.
+        if ($grant === 'scoped_password') {
+            $grant = new ScopedPassword();
+        }
+
         return parent::getAccessToken($grant, $options);
     }
 
     /**
      * Checks a provider response for errors.
      *
+     * @param ResponseInterface $response
+     * @param array|string      $data     Parsed response data
+     *
      * @throws IdentityProviderException
-     * @param  ResponseInterface $response
-     * @param  array|string $data Parsed response data
-     * @return void
      */
     protected function checkResponse(ResponseInterface $response, $data)
     {
@@ -94,8 +103,9 @@ class Linkshare extends AbstractProvider
      * Generates a resource owner object from a successful resource owner
      * details request.
      *
-     * @param  array $response
-     * @param  AccessToken $token
+     * @param array       $response
+     * @param AccessToken $token
+     *
      * @return ResourceOwnerInterface
      */
     protected function createResourceOwner(array $response, AccessToken $token)
@@ -104,11 +114,11 @@ class Linkshare extends AbstractProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getAuthorizationHeaders($token = null)
     {
-        if (!isset($token)) {
+        if (! isset($token)) {
             return [];
         }
 

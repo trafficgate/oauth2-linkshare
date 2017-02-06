@@ -1,9 +1,8 @@
 <?php
 
-namespace League\OAuth2\Client\Test\Provider;
+namespace Linkshare\OAuth2\Client\Test\Provider;
 
-use League\OAuth2\Client\Grant\ScopedPassword;
-use League\OAuth2\Client\Provider\Linkshare;
+use Linkshare\OAuth2\Client\Provider\Linkshare;
 use Mockery as m;
 use PHPUnit_Framework_TestCase;
 
@@ -14,9 +13,9 @@ class LinkshareTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->provider = new Linkshare([
-            'clientId' => 'mock_client_id',
+            'clientId'     => 'mock_client_id',
             'clientSecret' => 'mock_secret',
-            'redirectUri' => 'none',
+            'redirectUri'  => 'none',
         ]);
     }
 
@@ -43,7 +42,7 @@ class LinkshareTest extends PHPUnit_Framework_TestCase
 
     public function testScopes()
     {
-        $options = ['scope' => [uniqid(),uniqid()]];
+        $options = ['scope' => [uniqid(), uniqid()]];
 
         $url = $this->provider->getAuthorizationUrl($options);
 
@@ -96,8 +95,8 @@ class LinkshareTest extends PHPUnit_Framework_TestCase
      **/
     public function testExceptionThrownWhenErrorObjectReceived()
     {
-        $message = uniqid();
-        $status = rand(400,600);
+        $message      = uniqid();
+        $status       = rand(400, 600);
         $postResponse = m::mock('Psr\Http\Message\ResponseInterface');
         $postResponse->shouldReceive('getBody')->andReturn(' {"error":"server_error", "error_description":"'.$message.'"}');
         $postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
