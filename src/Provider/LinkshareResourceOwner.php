@@ -1,6 +1,6 @@
 <?php
 
-namespace League\OAuth2\Client\Provider;
+namespace Linkshare\OAuth2\Client\Provider;
 
 class LinkshareResourceOwner implements ResourceOwnerInterface
 {
