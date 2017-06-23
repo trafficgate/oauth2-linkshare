@@ -1,18 +1,18 @@
 language: php
-
 php:
-  - 5.6
-  - 7.0
-  - 7.1
-  - hhvm
-
+- 5.6
+- 7.0
+- 7.1
+- hhvm
 matrix:
   allow_failures:
-    - php: hhvm
+  - php: hhvm
   fast_finish: true
-
 install:
-  - travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
-
+- travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
 script:
-  - vendor/bin/phpunit
+- vendor/bin/phpunit
+notifications:
+  hipchat:
+    rooms:
+      secure: X4dtw6YftIWz4tkD2jp5MD4ZSdbx9IYT2SseTYKQMZ7+/wV5Mirtto7dqMyBsY5P40/jIsBV3FcOmuwG/DC/wa5rqvwaqnPRlbIq97EIiC6kkAH1IQMQD5Cwk33WgXhMZviARbNe5A/14qPrJogoQXFHQ0/lGjJKKx22JfJiP96HQ1DBCF9D3sXJ01ogRrVMxMq8/4mz+Oe0OSNasqHKI3wOzmlRDJqYFu/F+SMivtuDov6tPm0GbKPMwL7dbuCVH7qwkDPFTYzEnkQi9n+xYynK02Yzr1iceQ4+MhGVLpazDiT8d011sK7X7TBe1B9A7NrPP3KCss0xyIbY+n22eRgP3jFJyPQx4FA0fUoNwipNQam5CKpQPMdPm0pVFW31jqCdeVBCn2spV1zf3qJQuZq27YWGGqyXY5mDB7TLheD6Ul+tkuyIWjaYE4R5WUBhSI25Yivn5VXj4z108hyeANzuMIA8YDrz/Oaikah+H9GCflhQ0b8pDQEDP6QG/Vk+7h92wN8KVhawNJIqh3yAJxJrBF3mJKl08c6Q4/yDhmATM320a3zqGIKK5iXmk59GmSZYZCXFxtLFwV2oXMSsKQy5PvFYs2XGNYuz8ebVSFCGh11Y5RJ7OFB3hS7aHhXspk4K+suUzcu81MzZoBK9kf0NtbIbjcKI8a2VQbGUbQY=
