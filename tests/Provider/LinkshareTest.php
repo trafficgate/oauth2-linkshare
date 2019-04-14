@@ -2,15 +2,16 @@
 
 namespace Linkshare\OAuth2\Client\Test\Provider;
 
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Linkshare\OAuth2\Client\Provider\Linkshare;
 use Mockery as m;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class LinkshareTest extends PHPUnit_Framework_TestCase
+class LinkshareTest extends TestCase
 {
     protected $provider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->provider = new Linkshare([
             'clientId'     => 'mock_client_id',
@@ -19,13 +20,13 @@ class LinkshareTest extends PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
         parent::tearDown();
     }
 
-    public function testAuthorizationUrl()
+    public function testAuthorizationUrl(): void
     {
         $url = $this->provider->getAuthorizationUrl();
         $uri = parse_url($url);
@@ -40,16 +41,16 @@ class LinkshareTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($this->provider->getState());
     }
 
-    public function testScopes()
+    public function testScopes(): void
     {
         $options = ['scope' => [uniqid(), uniqid()]];
 
         $url = $this->provider->getAuthorizationUrl($options);
 
-        $this->assertContains(urlencode(implode(',', $options['scope'])), $url);
+        $this->assertStringContainsString(urlencode(implode(',', $options['scope'])), $url);
     }
 
-    public function testGetAuthorizationUrl()
+    public function testGetAuthorizationUrl(): void
     {
         $url = $this->provider->getAuthorizationUrl();
         $uri = parse_url($url);
@@ -57,7 +58,7 @@ class LinkshareTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/token', $uri['path']);
     }
 
-    public function testGetBaseAccessTokenUrl()
+    public function testGetBaseAccessTokenUrl(): void
     {
         $params = [];
 
@@ -67,7 +68,7 @@ class LinkshareTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/token', $uri['path']);
     }
 
-    public function testGetAccessToken()
+    public function testGetAccessToken(): void
     {
         $response = m::mock('Psr\Http\Message\ResponseInterface');
         $response->shouldReceive('getBody')->andReturn('{"token_type":"bearer", "expires_in":"3600", "refresh_token":"mock_refresh_token", "access_token":"mock_access_token"}');
@@ -90,11 +91,10 @@ class LinkshareTest extends PHPUnit_Framework_TestCase
         $this->assertNull($token->getResourceOwnerId());
     }
 
-    /**
-     * @expectedException League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     **/
-    public function testExceptionThrownWhenErrorObjectReceived()
+    public function testExceptionThrownWhenErrorObjectReceived(): void
     {
+        $this->expectException(IdentityProviderException::class);
+
         $message      = uniqid();
         $status       = rand(400, 600);
         $postResponse = m::mock('Psr\Http\Message\ResponseInterface');
