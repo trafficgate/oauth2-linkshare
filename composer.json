@@ -20,7 +20,7 @@
     "authorisation"
   ],
   "require": {
-    "php": ">=7.2.0",
+    "php": ">=7.1.3",
     "league/oauth2-client": "~2.0"
   },
   "require-dev": {
