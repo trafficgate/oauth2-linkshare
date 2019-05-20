@@ -54,19 +54,6 @@ class Linkshare extends AbstractProvider
     }
 
     /**
-     * Returns the default scopes used by this provider.
-     *
-     * This should only be the scopes that are required to request the details
-     * of the resource owner, rather than all the available scopes.
-     *
-     * @return array
-     */
-    protected function getDefaultScopes()
-    {
-        return ['Production'];
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getAccessToken($grant = 'scoped_password', array $options = [])
@@ -78,6 +65,19 @@ class Linkshare extends AbstractProvider
         }
 
         return parent::getAccessToken($grant, $options);
+    }
+
+    /**
+     * Returns the default scopes used by this provider.
+     *
+     * This should only be the scopes that are required to request the details
+     * of the resource owner, rather than all the available scopes.
+     *
+     * @return array
+     */
+    protected function getDefaultScopes()
+    {
+        return ['Production'];
     }
 
     /**
